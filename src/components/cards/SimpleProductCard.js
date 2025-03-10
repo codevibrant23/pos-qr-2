@@ -58,7 +58,7 @@ export default function SimpleProductCard({ product, onClick }) {
             bottom={-3}
             left="50%"
             transform="translateX(-50%)"
-            zIndex={10}
+            zIndex={2}
           >
             <AddToCartButton key={false} size={"2xs"} />
           </Box>

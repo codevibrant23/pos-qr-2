@@ -5,7 +5,7 @@ export default function OutletMainLayout({ children }) {
   return (
     <div className="relative">
       {children}
-      <div className="bottom-0 left-0 w-screen fixed">
+      <div className="bottom-0 left-0 w-screen fixed z-10">
         <CartWrapper />
       </div>
     </div>
