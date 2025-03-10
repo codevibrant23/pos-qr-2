@@ -22,9 +22,8 @@ export default async function layout({ children, params }) {
         bg="white"
         zIndex="50"
         boxShadow="md"
-        p={4}
       >
-        <Flex align="center" gap={4} mb={4}>
+        <Flex align="center" gap={4} p={4}>
           <BackToMenu icon={<ArrowLeft size={16} />} />
           <Heading as="h2" size="lg" textTransform="capitalize">
             {toCategoryName(category)}
