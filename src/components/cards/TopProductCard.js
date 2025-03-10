@@ -1,17 +1,20 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { NonVegIcon, VegIcon } from "../Icons";
+import VegIcon from "@/lib/Icons/VegIcon";
+import NonVegIcon from "@/lib/Icons/NonVegIcon";
 
 const TopProductCard = ({ product, onClick }) => {
   return (
-    <div 
+    <div
       onClick={onClick}
       className="cursor-pointer w-full rounded-xl shadow hover:shadow-lg transition duration-200 overflow-hidden"
     >
       {/* Product Image Section */}
       <div className="relative h-40 w-full bg-white">
         {product.image && (
-          <Image 
+          <Image
             src={product.image}
             layout="fill"
             objectFit="cover"
@@ -28,7 +31,9 @@ const TopProductCard = ({ product, onClick }) => {
       {/* Product Details Section */}
       <div className="p-3">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+          <h3 className="text-lg font-semibold text-gray-800">
+            {product.name}
+          </h3>
           <span className="text-sm text-gray-600">₹{product.price}</span>
         </div>
       </div>

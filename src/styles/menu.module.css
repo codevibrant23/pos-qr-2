@@ -1,0 +1,15 @@
+.category {
+  background-color: var(--category-bg);
+}
+
+.category[data-active="true"] {
+  background: linear-gradient(
+    180deg,
+    var(--active-bg-start) 0%,
+    var(--active-bg-end) 100%
+  );
+  box-shadow: 0px 4px 4px 0px #00000040;
+
+  /* box-shadow: var(--active-shadow); */
+  color: #fffaf0;
+}

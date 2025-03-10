@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
-import { useRouter } from "next/router";
-import { cn } from "@/lib/utils";
+import { Button, Box, Text } from "@chakra-ui/react";
+import { useParams, useRouter } from "next/navigation";
+import { cn, toUrlString } from "@/lib/utils";
 import styles from "@/styles/menu.module.css";
 
 const CategoryCard = ({
@@ -12,31 +15,40 @@ const CategoryCard = ({
   activeBgEnd,
   categoryBg,
 }) => {
+  const { outlet } = useParams();
   const router = useRouter();
 
   const handleClick = () => {
-    // If an external onClick is provided, call it first
-      onClick();
-      //  redirect to the category page based on label
-      router.push(`/category/${label.toLowerCase().replace(/\s+/g, "-")}`);
+    if (onClick) onClick();
+    router.push(`/${outlet}/${toUrlString(label)}`);
   };
 
   return (
-    <div
-      className={cn(["rounded-lg h-14 p-2 relative", styles.category])}
+    <Button
+      onClick={handleClick}
+      variant="unstyled"
+      className={cn([styles.category])}
       style={{
         "--active-bg-start": activeBgStart,
         "--active-bg-end": activeBgEnd,
         "--category-bg": categoryBg,
       }}
       data-active={isActive}
-      onClick={handleClick}
+      borderRadius="lg"
+      h="56px" // equivalent to Tailwind's h-14 (3.5rem)
+      p={2} // equivalent to Tailwind's p-2 (0.5rem)
+      position="relative"
+      width="100%"
     >
-      <div className="absolute right-2.5 bottom-3.5">{icon}</div>
-      <div className="absolute left-2.5 bottom-2.5">
-        <div className="font-medium">{label}</div>
-      </div>
-    </div>
+      {/* Icon positioned at the top right */}
+      <Box position="absolute" right="10px" bottom="14px">
+        {icon}
+      </Box>
+      {/* Label positioned at the bottom left */}
+      <Box position="absolute" left="10px" bottom="10px">
+        <Text fontWeight="medium">{label}</Text>
+      </Box>
+    </Button>
   );
 };
 

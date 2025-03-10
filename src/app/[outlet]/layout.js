@@ -1,0 +1,13 @@
+import CartWrapper from "@/components/Cart/CartWrapper";
+import React from "react";
+
+export default function OutletMainLayout({ children }) {
+  return (
+    <div className="relative">
+      {children}
+      <div className="bottom-0 left-0 w-screen fixed">
+        <CartWrapper />
+      </div>
+    </div>
+  );
+}

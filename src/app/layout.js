@@ -1,15 +1,12 @@
 import "@/styles/globals.css";
-import { Provider } from "@/components/ui/provider"
-
+import { Provider } from "@/components/ui/provider";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning class="light">
+      <body>
         <Provider>{children}</Provider>
-        </body>
+      </body>
     </html>
   );
 }
