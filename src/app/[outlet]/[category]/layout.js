@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { getCategories } from "@/lib/apiCalls/fetcher";
 import BackToMenu from "./BackToMenu";
 import { toCategoryName } from "@/lib/utils";
+import Header from "@/components/Interactions/Header";
 
 export default async function layout({ children, params }) {
   const { outlet, category } = await params;
@@ -23,12 +24,13 @@ export default async function layout({ children, params }) {
         zIndex="50"
         boxShadow="md"
       >
-        <Flex align="center" gap={4} p={4}>
+        <Flex align="center" gap={4} px={4} pt={4}>
           <BackToMenu icon={<ArrowLeft size={16} />} />
           <Heading as="h2" size="lg" textTransform="capitalize">
             {toCategoryName(category)}
           </Heading>
         </Flex>
+        <Header />
         {/* Scrollable Tabs for Categories */}
         <CategorySlider active={category} data={Categories?.categories} />
       </Box>

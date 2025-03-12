@@ -9,14 +9,13 @@ import {
   TabsRoot,
   TabsTrigger,
 } from "@chakra-ui/react";
-import { Box } from "lucide-react";
 import React from "react";
 
 export default function CategorySlider({ data, active }) {
-  console.log(typeof active);
+  // console.log(typeof active);
   return (
-    <div className="overflow-scroll p-2">
-      <div className="w-fit">
+    <div className="overflow-scroll">
+      <div className="w-fit p=2">
         {/* <Bleed> */}
         <TabsRoot variant="line">
           <TabsList>
@@ -25,6 +24,7 @@ export default function CategorySlider({ data, active }) {
                 value={toUrlString(c)}
                 key={c}
                 width={"-moz-max-content"}
+                textWrap="nowrap"
               >
                 {c}
               </TabsTrigger>

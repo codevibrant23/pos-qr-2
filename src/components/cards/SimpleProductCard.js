@@ -2,7 +2,7 @@
 
 import React from "react";
 import NextImage from "next/image";
-import { Box, Text, Button, Stack, Separator } from "@chakra-ui/react";
+import { Box, Text, Button, Stack, Separator, HStack } from "@chakra-ui/react";
 import VegIcon from "@/lib/Icons/VegIcon";
 import NonVegIcon from "@/lib/Icons/NonVegIcon";
 import AddToCartButton from "../Cart/AddToCartButton";
@@ -19,7 +19,7 @@ export default function SimpleProductCard({ product, onClick }) {
         p={2}
         w="full"
       >
-        <Stack mx={3} flex={1} gap={1}>
+        <HStack gap={2} flex={1} align="start">
           <Box
             flexShrink={0}
             boxSize={6}
@@ -27,15 +27,17 @@ export default function SimpleProductCard({ product, onClick }) {
             alignItems="start"
             justifyContent="center"
           >
-            {product.isVeg ? <VegIcon /> : <NonVegIcon />}
+            {true ? <VegIcon /> : <NonVegIcon />}
           </Box>
-          <Text fontSize="md" fontWeight="medium" color="gray.800">
-            {product.name}
-          </Text>
-          <Text fontSize="sm" color="gray.600">
-            Rs. {product.price}
-          </Text>
-        </Stack>
+          <Stack mx={3} gap={1}>
+            <Text fontSize="md" fontWeight="medium" color="gray.800">
+              {product.name}
+            </Text>
+            <Text fontSize="sm" color="gray.600">
+              Rs. {product.price}
+            </Text>
+          </Stack>
+        </HStack>
 
         <Box
           position="relative"

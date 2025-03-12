@@ -4,6 +4,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import CategoryList from "./CategoryList";
 import MenuList from "./MenuList";
 import SpecialMenu from "./SpecialMenu";
+import Header from "@/components/Interactions/Header";
 
 export default async function Page({ params }) {
   const { outlet } = await params;
@@ -14,7 +15,6 @@ export default async function Page({ params }) {
 
   return (
     <Box pos="relative">
-      {/* Heading */}
       <Heading
         as="h2"
         w="full"
@@ -29,8 +29,7 @@ export default async function Page({ params }) {
       >
         Welcome to Vibrant POS
       </Heading>
-      Search
-      {/* Categories */}
+      <Header />
       <Box>
         <Heading
           as="h3"
