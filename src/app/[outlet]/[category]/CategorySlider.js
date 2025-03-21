@@ -9,24 +9,31 @@ import {
   TabsRoot,
   TabsTrigger,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function CategorySlider({ data, active }) {
-  // console.log(typeof active);
+export default function CategorySlider({ data, active, outlet }) {
+  const router = useRouter();
   return (
     <div className="overflow-scroll">
       <div className="w-fit p=2">
         {/* <Bleed> */}
-        <TabsRoot variant="line">
+        <TabsRoot
+          variant="line"
+          value={active}
+          onValueChange={(e) => {
+            router.push(`/${outlet}/${e.value}`);
+          }}
+        >
           <TabsList>
-            {data.map((c) => (
+            {data.map(({ id, name }) => (
               <TabsTrigger
-                value={toUrlString(c)}
-                key={c}
+                value={toUrlString(name)}
+                key={id}
                 width={"-moz-max-content"}
                 textWrap="nowrap"
               >
-                {c}
+                {name}
               </TabsTrigger>
             ))}
           </TabsList>

@@ -14,7 +14,6 @@ export default async function layout({ children, params }) {
   //   console.log(Categories);
   return (
     <Box pos="relative">
-      {/* Fixed Header */}
       <Box
         pos="fixed"
         top="0"
@@ -31,10 +30,15 @@ export default async function layout({ children, params }) {
           </Heading>
         </Flex>
         <Header />
-        {/* Scrollable Tabs for Categories */}
-        <CategorySlider active={category} data={Categories?.categories} />
+        <CategorySlider
+          active={category}
+          data={Categories?.categories}
+          outlet={outlet}
+        />
       </Box>
-      {children}
+      <Box pt={40} pb={20}>
+        {children}
+      </Box>
     </Box>
   );
 }

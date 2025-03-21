@@ -24,7 +24,7 @@ export default function CartWrapper() {
 
   return (
     <div className="static">
-      <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)}>
+      <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)} size="xl">
         <DrawerTrigger asChild>
           <Button
             bg="orange.400"

@@ -2,10 +2,24 @@
 
 const baseUrl = process.env.baseUrl;
 
+export async function getBanners(outlet) {
+  try {
+    const res = await fetch(baseUrl + `/v1/qr/api/get-advertisement-banners/${outlet}`);
+    let data= await res.json();
+    // console.log(data)
+    return data;
+  } catch (e) {
+    console.log("Fetch Error: Banner CTAs List\n", e.message);
+    return null;
+  }
+}
+
 export async function getCategories(outlet) {
   try {
     const res = await fetch(baseUrl + `/v1/qr/api/get-categories/${outlet}`);
-    return await res.json();
+    let data= await res.json();
+    // console.log(data)
+    return data;
   } catch (e) {
     console.log("Fetch Error: Category List\n", e.message);
     return null;
@@ -15,9 +29,21 @@ export async function getCategories(outlet) {
 export async function getProducts(outlet) {
   try {
     const res = await fetch(baseUrl + `/v1/qr/api/get-products/${outlet}`);
-    return await res.json();
-  } catch (e) {
+    let data= await res.json();
+    // console.log(data)
+    return data;  } catch (e) {
     console.log("Fetch Error: Items List\n", e.message);
+    return null;
+  }
+}
+
+export async function getSpecialMenu(outlet) {
+  try {
+    const res = await fetch(baseUrl + `/v1/qr/api/special-menu/${outlet}`);
+    let data= await res.json();
+    // console.log(data)
+    return data;  } catch (e) {
+    console.log("Fetch Error: Specail menu list\n", e.message);
     return null;
   }
 }

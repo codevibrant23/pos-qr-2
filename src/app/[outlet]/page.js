@@ -61,18 +61,8 @@ export default async function Page({ params }) {
       </Box>
       {/* All Items */}
       <Box py={5}>
-        <Heading
-          as="h3"
-          sx={{ scrollMarginTop: "5rem" }}
-          fontSize="2xl"
-          fontWeight="medium"
-          letterSpacing="tight"
-          p={3}
-          mx={2}
-        >
-          All Items
-        </Heading>
-        <MenuList data={ItemsList.products} />
+        
+        <MenuList data={ItemsList} />
       </Box>
     </Box>
   );

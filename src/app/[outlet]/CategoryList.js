@@ -26,21 +26,18 @@ export default function CategoryList({ data }) {
   const [active, setActive] = useState(0);
 
   return (
-    <SimpleGrid
-      columns={{ base: 2, sm: 3, md: 4 }}
-      gap={2}
-      p={4}
-    >
-      {data?.categories?.map((c, i) => {
+    <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={2} p={4}>
+      {data?.categories?.map(({ id, name }, i) => {
         const color = colors[i % 3].reg;
         const gradStart = colors[i % 3].high.start;
         const gradEnd = colors[i % 3].high.end;
         return (
           <CategoryCard
-            key={i + 1}
-            label={c}
-            isActive={active === i + 1}
-            onClick={() => setActive(i + 1)}
+            key={i}
+            id={id}
+            label={name}
+            isActive={active === id}
+            onClick={() => setActive(id)}
             activeBgStart={gradStart}
             activeBgEnd={gradEnd}
             categoryBg={color}

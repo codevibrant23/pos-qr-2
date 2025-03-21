@@ -66,7 +66,6 @@ export default function SimpleProductCard({ product, onClick }) {
           </Box>
         </Box>
       </Box>
-      <Separator color="gray.100" />
     </>
   );
 }
