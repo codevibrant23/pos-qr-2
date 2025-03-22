@@ -9,35 +9,23 @@ import { Box, Heading } from "@chakra-ui/react";
 import CategoryList from "./CategoryList";
 import MenuList from "./MenuList";
 import SpecialMenu from "./SpecialMenu";
-import Header from "@/components/Interactions/Header";
 import Carousel from "@/components/Interactions/Carousel";
+import MenuPageHeader from "./MenuPageHeader";
 
-export default async function Page({ params }) {
-  const { outlet, veg, nonVeg } = await params;
+export default async function Page({ params, searchParams }) {
+  const { outlet } = await params;
+  const { veg, nonVeg } = await searchParams;
+
   const categories = await getCategories(outlet);
   const itemsList = await getProducts(outlet, veg, nonVeg);
   const specialMenu = await getSpecialMenu(outlet);
   const banners = await getAdBanners(outlet);
 
-  console.log(banners);
+  // console.log(await searchParams);
 
   return (
     <Box pos="relative">
-      <Heading
-        as="h2"
-        w="full"
-        mt={3}
-        p={4}
-        display="flex"
-        justifyContent="space-between"
-        sx={{ scrollMarginTop: "5rem" }}
-        fontSize={{ base: "2xl", lg: "3xl" }}
-        fontWeight="normal"
-        letterSpacing="tight"
-      >
-        Welcome to Vibrant POS
-      </Heading>
-      <Header />
+      <MenuPageHeader />
       <Box>
         <Heading
           as="h3"
@@ -53,7 +41,7 @@ export default async function Page({ params }) {
         <CategoryList data={categories} />
       </Box>
       <Box my={5}>
-        <Carousel banners={banners.banners} autoPlay={true}/>
+        <Carousel banners={banners.banners} autoPlay={true} />
       </Box>
       {/* Special Menu */}
       <Box bg="backgroundLight" py={5}>
