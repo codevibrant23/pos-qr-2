@@ -2,7 +2,7 @@
 
 const baseUrl = process.env.baseUrl;
 
-export async function getBanners(outlet) {
+export async function getAdBanners(outlet) {
   try {
     const res = await fetch(baseUrl + `/v1/qr/api/get-advertisement-banners/${outlet}`);
     let data= await res.json();

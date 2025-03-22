@@ -1,17 +1,25 @@
-import { getCategories, getProducts } from "@/lib/apiCalls/fetcher";
+import {
+  getAdBanners,
+  getCategories,
+  getProducts,
+  getSpecialMenu,
+} from "@/lib/apiCalls/fetcher";
 import React from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import CategoryList from "./CategoryList";
 import MenuList from "./MenuList";
 import SpecialMenu from "./SpecialMenu";
 import Header from "@/components/Interactions/Header";
+import Carousel from "@/components/Interactions/Carousel";
 
 export default async function Page({ params }) {
-  const { outlet } = await params;
-  const Categories = await getCategories(outlet);
-  const ItemsList = await getProducts(outlet);
+  const { outlet, veg, nonVeg } = await params;
+  const categories = await getCategories(outlet);
+  const itemsList = await getProducts(outlet, veg, nonVeg);
+  const specialMenu = await getSpecialMenu(outlet);
+  const banners = await getAdBanners(outlet);
 
-  // console.log(ItemsList);
+  console.log(banners);
 
   return (
     <Box pos="relative">
@@ -42,7 +50,10 @@ export default async function Page({ params }) {
         >
           Categories
         </Heading>
-        <CategoryList data={Categories} />
+        <CategoryList data={categories} />
+      </Box>
+      <Box my={5}>
+        <Carousel banners={banners.banners} autoPlay={true}/>
       </Box>
       {/* Special Menu */}
       <Box bg="backgroundLight" py={5}>
@@ -57,12 +68,11 @@ export default async function Page({ params }) {
         >
           Special Menu
         </Heading>
-        <SpecialMenu data={ItemsList?.products?.slice(0, 3)} />
+        <SpecialMenu data={specialMenu?.products} />
       </Box>
       {/* All Items */}
       <Box py={5}>
-        
-        <MenuList data={ItemsList} />
+        <MenuList data={itemsList} />
       </Box>
     </Box>
   );
