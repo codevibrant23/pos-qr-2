@@ -1,8 +1,8 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { SimpleGrid } from "@chakra-ui/react";
 import CategoryCard from "@/components/cards/CategoryCard";
+import { getCategories } from "@/lib/apiCalls/fetcher";
+import { toUrlString } from "@/lib/utils";
 
 const colors = [
   {
@@ -22,8 +22,8 @@ const colors = [
   },
 ];
 
-export default function CategoryList({ data }) {
-  const [active, setActive] = useState(0);
+export default async function CategoryList({ outlet }) {
+  const data = await getCategories(outlet);
 
   return (
     <SimpleGrid columns={{ base: 2, sm: 3, md: 4 }} gap={2} p={4}>
@@ -36,11 +36,10 @@ export default function CategoryList({ data }) {
             key={i}
             id={id}
             label={name}
-            isActive={active === id}
-            onClick={() => setActive(id)}
             activeBgStart={gradStart}
             activeBgEnd={gradEnd}
             categoryBg={color}
+            linkUrl={`/${outlet}/${toUrlString(name)}`}
           />
         );
       })}

@@ -16,7 +16,6 @@ export default async function Page({ params, searchParams }) {
   const { outlet } = await params;
   const { veg, nonVeg } = await searchParams;
 
-  const categories = await getCategories(outlet);
   const itemsList = await getProducts(outlet, veg, nonVeg);
   const specialMenu = await getSpecialMenu(outlet);
   const banners = await getAdBanners(outlet);
@@ -38,7 +37,7 @@ export default async function Page({ params, searchParams }) {
         >
           Categories
         </Heading>
-        <CategoryList data={categories} />
+        <CategoryList outlet={outlet} />
       </Box>
       <Box my={5}>
         <Carousel banners={banners.banners} autoPlay={true} />
