@@ -15,7 +15,7 @@ import React from "react";
 export default function CategorySlider({ data, active, outlet }) {
   const router = useRouter();
   return (
-    <div className="overflow-scroll">
+    <div className="overflow-scroll hide-scrollbar">
       <div className="w-fit p=2">
         {/* <Bleed> */}
         <TabsRoot
