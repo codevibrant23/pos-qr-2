@@ -1,30 +1,13 @@
-"use client";
-
 import { toUrlString } from "@/lib/utils";
-import {
-  Bleed,
-  For,
-  Tabs,
-  TabsList,
-  TabsRoot,
-  TabsTrigger,
-} from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { TabsList, TabsRoot, TabsTrigger } from "@chakra-ui/react";
 import React from "react";
 
-export default function CategorySlider({ data, active, outlet }) {
-  const router = useRouter();
+export default function CategorySlider({ data, active, onChange }) {
   return (
     <div className="overflow-scroll hide-scrollbar">
       <div className="w-fit p=2">
         {/* <Bleed> */}
-        <TabsRoot
-          variant="line"
-          value={active}
-          onValueChange={(e) => {
-            router.push(`/${outlet}/${e.value}`);
-          }}
-        >
+        <TabsRoot variant="line" value={active} onValueChange={onChange}>
           <TabsList>
             {data.map(({ id, name }) => (
               <TabsTrigger

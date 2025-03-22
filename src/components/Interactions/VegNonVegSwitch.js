@@ -12,11 +12,11 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { GiChicken, GiChickenOven } from "react-icons/gi";
 import { PiPlantLight } from "react-icons/pi";
-import { useRouterPush } from "@/lib/CustomHooks/RouterHook";
+import { useRouterReplace } from "@/lib/CustomHooks/RouterHook";
 
 export default function VegNonVegSwitch() {
   const searchParams = useSearchParams();
-  const push = useRouterPush();
+  const routerReplace = useRouterReplace();
   const [loading, setLoading] = useState(false);
 
   // Initialize states from query parameters (e.g., ?veg=true&nonVeg=true)
@@ -36,7 +36,7 @@ export default function VegNonVegSwitch() {
     } else {
       params.delete(param);
     }
-    push(`?${params.toString()}`).then(() => setLoading(false));
+    routerReplace(`?${params.toString()}`).then(() => setLoading(false));
   }
 
   // // Update state when the search parameters change

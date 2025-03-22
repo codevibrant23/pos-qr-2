@@ -1,18 +1,18 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 
-export function useRouterPush() {
+export function useRouterReplace() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const [resolveFn, setResolveFn] = useState(null);
   const [isTriggered, setIsTriggered] = useState(false);
 
-  const push = (url) => {
+  const routerReplace = (url) => {
     return new Promise((resolve, reject) => {
       setResolveFn(() => resolve);
       startTransition(() => {
-        router.push(url, { scroll: false });
+        router.replace(url, { scroll: false });
       });
     });
   };
@@ -30,5 +30,5 @@ export function useRouterPush() {
     }
   }, [isTriggered, isPending, resolveFn]);
 
-  return push;
+  return routerReplace;
 }
