@@ -36,7 +36,7 @@ export default async function layout({ children, params }) {
           outlet={outlet}
         />
       </Box>
-      <Box pt={40} pb={20}>
+      <Box pt={44} pb={20}>
         {children}
       </Box>
     </Box>

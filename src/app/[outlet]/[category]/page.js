@@ -1,16 +1,27 @@
-import { Box } from "@chakra-ui/react";
+import { Separator } from "@chakra-ui/react";
 import React from "react";
-import MenuList from "../MenuList";
 import { getProducts } from "@/lib/apiCalls/fetcher";
 import { toCategoryName } from "@/lib/utils";
+import SimpleProductCard from "@/components/cards/SimpleProductCard";
 
 export default async function page({ params }) {
-  const { outlet, category } = await params;
-  const ItemsList = await getProducts(outlet);
+  const { outlet, category, veg, nonVeg } = await params;
+  const ItemsList = await getProducts(outlet, veg, nonVeg);
 
   const items = ItemsList.categories.filter(
     (c) => c.category_name.toLowerCase() == toCategoryName(category)
   )[0].items;
 
-  return <MenuList data={items} />;
+  return (
+    <>
+      {items.map((p, i) => {
+        return (
+          <div key={i}>
+            <SimpleProductCard product={p} />
+            <Separator color="gray.100" w my={6} />
+          </div>
+        );
+      })}
+    </>
+  );
 }

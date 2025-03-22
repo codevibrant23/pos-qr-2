@@ -8,58 +8,58 @@ import { LuMoon, LuSun } from "react-icons/lu";
 
 export function ColorModeProvider(props) {
   return (
-    <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
+    <ThemeProvider attribute="class" disableTransitionOnChange forcedTheme="light" {...props} />
   );
 }
 
-export function useColorMode() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const toggleColorMode = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "light");
-  };
-  return {
-    colorMode: resolvedTheme,
-    setColorMode: setTheme,
-    toggleColorMode,
-  };
-}
+// export function useColorMode() {
+//   const { resolvedTheme, setTheme } = useTheme();
+//   const toggleColorMode = () => {
+//     setTheme(resolvedTheme === "dark" ? "light" : "light");
+//   };
+//   return {
+//     colorMode: resolvedTheme,
+//     setColorMode: setTheme,
+//     toggleColorMode,
+//   };
+// }
 
-export function useColorModeValue(light, dark) {
-  const { colorMode } = useColorMode();
-  return colorMode === "dark" ? light : light;
-}
+// export function useColorModeValue(light, dark) {
+//   const { colorMode } = useColorMode();
+//   return colorMode === "dark" ? light : light;
+// }
 
-export function ColorModeIcon() {
-  const { colorMode } = useColorMode();
-  return colorMode === "dark" ? <LuMoon /> : <LuSun />;
-}
+// export function ColorModeIcon() {
+//   const { colorMode } = useColorMode();
+//   return colorMode === "dark" ? <LuMoon /> : <LuSun />;
+// }
 
-export const ColorModeButton = React.forwardRef(function ColorModeButton(
-  props,
-  ref
-) {
-  const { toggleColorMode } = useColorMode();
-  return (
-    <ClientOnly fallback={<Skeleton boxSize="8" />}>
-      <IconButton
-        onClick={toggleColorMode}
-        variant="ghost"
-        aria-label="Toggle color mode"
-        size="sm"
-        ref={ref}
-        {...props}
-        css={{
-          _icon: {
-            width: "5",
-            height: "5",
-          },
-        }}
-      >
-        <ColorModeIcon />
-      </IconButton>
-    </ClientOnly>
-  );
-});
+// export const ColorModeButton = React.forwardRef(function ColorModeButton(
+//   props,
+//   ref
+// ) {
+//   const { toggleColorMode } = useColorMode();
+//   return (
+//     <ClientOnly fallback={<Skeleton boxSize="8" />}>
+//       <IconButton
+//         onClick={toggleColorMode}
+//         variant="ghost"
+//         aria-label="Toggle color mode"
+//         size="sm"
+//         ref={ref}
+//         {...props}
+//         css={{
+//           _icon: {
+//             width: "5",
+//             height: "5",
+//           },
+//         }}
+//       >
+//         <ColorModeIcon />
+//       </IconButton>
+//     </ClientOnly>
+//   );
+// });
 
 export const LightMode = React.forwardRef(function LightMode(props, ref) {
   return (

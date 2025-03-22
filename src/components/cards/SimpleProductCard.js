@@ -36,6 +36,15 @@ export default function SimpleProductCard({ product, onClick }) {
             <Text fontSize="sm" color="gray.600">
               Rs. {product.price}
             </Text>
+            <Text
+              mt={2}
+              fontSize="sm"
+              color="gray.600"
+              fontWeight="medium"
+              lineClamp={2}
+            >
+              {product.description}
+            </Text>
           </Stack>
         </HStack>
 

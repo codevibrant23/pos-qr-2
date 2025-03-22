@@ -27,14 +27,13 @@ export default function MenuList({ data }) {
             <div>
               {items?.map((p, j) => {
                 return (
-                  <>
+                  <div key={j}>
                     <SimpleProductCard
-                      key={j + 1}
                       product={p}
                       onClick={() => handleAdd(p)}
                     />
-                    <Separator color="gray.100" key={(j + 1) * i} my={6} />
-                  </>
+                    <Separator color="gray.100"w my={6} />
+                  </div>
                 );
               })}
             </div>
