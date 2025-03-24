@@ -17,7 +17,7 @@ import {
   Portal,
   Text,
 } from "@chakra-ui/react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
@@ -28,15 +28,24 @@ export default function CartWrapper() {
         <DrawerTrigger asChild>
           <Button
             bg="orange.400"
-            minH="48px" // Equivalent to Tailwind's min-h-12 (3rem)
+            minH="52px"
             w="full"
-            _hover={{ bg: "orange.500" }}
-            borderRadius={0}
+            borderRadius="md"
+            boxShadow="md"
+            transition="all 0.2s ease-in-out"
+            _hover={{
+              bg: "orange.500",
+              transform: "scale(1.02)",
+            }}
           >
-            <Flex justify="center" align="center" gap={5} w="full" p={4}>
-              <Text>10 Items</Text>
-              <Text>Rs. 1120</Text>
-              <FaArrowRight size={20} />
+            <Flex justify="center" align="center" gap={4} w="full" p={4}>
+              <Text fontSize="md" fontWeight="medium" color="white">
+                10 Items
+              </Text>
+              <Text fontSize="md" fontWeight="medium" color="white">
+                Rs. 1120
+              </Text>
+              <FaArrowRightLong size={18} color="white" />
             </Flex>
           </Button>
         </DrawerTrigger>

@@ -23,11 +23,7 @@ export default function VegNonVegSwitch() {
   const initialVeg = searchParams.get("veg") === "true";
   const initialNonVeg = searchParams.get("nonVeg") === "true";
 
-  // const [vegSelected, setVegSelected] = useState(initialVeg);
-  // const [nonVegSelected, setNonVegSelected] = useState(initialNonVeg);
-
-  function handleToggle(param, e) {
-    // Create a fresh instance based on current searchParams
+  const handleToggle = async (param, e) => {
     setLoading(true);
     const params = new URLSearchParams(searchParams.toString());
 
@@ -37,13 +33,7 @@ export default function VegNonVegSwitch() {
       params.delete(param);
     }
     routerReplace(`?${params.toString()}`).then(() => setLoading(false));
-  }
-
-  // // Update state when the search parameters change
-  // useEffect(() => {
-  //   setVegSelected(searchParams.get("veg") === "true");
-  //   setNonVegSelected(searchParams.get("nonVeg") === "true");
-  // }, [searchParams]);
+  };
 
   return (
     <HStack gap={2}>

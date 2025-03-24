@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CloseButton,
   DialogActionTrigger,
@@ -16,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { Search } from "lucide-react";
 import React from "react";
+import SearchComponent from "./SearchComponent";
 
 export default function SearchDialog() {
   return (
@@ -34,23 +36,32 @@ export default function SearchDialog() {
         <DialogBackdrop />
         <DialogPositioner>
           <DialogContent>
-            <DialogHeader display="flex" justifyContent="space-between">
-              <DialogTitle>Dialog Title</DialogTitle>
+            <DialogHeader
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <DialogTitle>Search Menu</DialogTitle>
               <DialogCloseTrigger asChild>
                 <CloseButton size="sm" />
               </DialogCloseTrigger>
             </DialogHeader>
             <DialogBody>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              <SearchComponent />
             </DialogBody>
             <DialogFooter>
-              <DialogActionTrigger asChild>
+              {/* <DialogActionTrigger asChild>
                 <Button variant="outline">Cancel</Button>
-              </DialogActionTrigger>
-              <Button>Save</Button>
+              </DialogActionTrigger> */}
+              <DialogCloseTrigger asChild>
+                <Button
+                  borderRadius="lg"
+                  colorPalette="orange"
+                  variant="subtle"
+                >
+                  Close
+                </Button>
+              </DialogCloseTrigger>
             </DialogFooter>
           </DialogContent>
         </DialogPositioner>
