@@ -18,9 +18,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useCart } from "@/context/CartContext";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
+  const { cart, totalCartQuantity, totalCartAmount } = useCart();
+  if (totalCartQuantity == 0) return;
 
   return (
     <div className="static">
@@ -40,10 +43,10 @@ export default function CartWrapper() {
           >
             <Flex justify="center" align="center" gap={4} w="full" p={4}>
               <Text fontSize="md" fontWeight="medium" color="white">
-                10 Items
+                {totalCartQuantity} Items
               </Text>
               <Text fontSize="md" fontWeight="medium" color="white">
-                Rs. 1120
+                Rs. {totalCartAmount}
               </Text>
               <FaArrowRightLong size={18} color="white" />
             </Flex>
@@ -66,8 +69,12 @@ export default function CartWrapper() {
                 </p>
               </DrawerBody>
               <DrawerFooter>
-                <Button variant="outline">Cancel</Button>
-                <Button>Save</Button>
+                <DrawerCloseTrigger asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DrawerCloseTrigger>
+                <DrawerCloseTrigger asChild>
+                  <Button>Save</Button>
+                </DrawerCloseTrigger>
               </DrawerFooter>
             </DrawerContent>
           </DrawerPositioner>

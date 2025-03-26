@@ -32,7 +32,7 @@ export default function MenuList({ data }) {
                       product={p}
                       onClick={() => handleAdd(p)}
                     />
-                    <Separator color="gray.100"w my={6} />
+                    <Separator color="gray.100" my={6} />
                   </div>
                 );
               })}

@@ -7,11 +7,10 @@ import VegIcon from "@/lib/Icons/VegIcon";
 import NonVegIcon from "@/lib/Icons/NonVegIcon";
 import AddToCartButton from "../Cart/AddToCartButton";
 
-export default function SimpleProductCard({ product, onClick }) {
+export default function SimpleProductCard({ product }) {
   return (
     <>
       <Box
-        onClick={onClick}
         bg="white"
         display="flex"
         alignItems="center"
@@ -71,7 +70,7 @@ export default function SimpleProductCard({ product, onClick }) {
             transform="translateX(-50%)"
             zIndex={2}
           >
-            <AddToCartButton key={false} size={"2xs"} />
+            <AddToCartButton key={false} size={"xs"} data={product} />
           </Box>
         </Box>
       </Box>

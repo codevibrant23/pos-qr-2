@@ -100,18 +100,7 @@ export default function SpecialCard({ product }) {
       </CardBody>
 
       <CardFooter flexDirection="column" alignItems="center" gap={2} p={4}>
-        {/* Add Button */}
-        <Button
-          variant="outline"
-          borderColor="orange.500"
-          color="orange.600"
-          px={6}
-          py={2}
-          borderRadius="lg"
-        >
-          Add
-        </Button>
-        <AddToCartButton key={true} size={"md"} />
+        <AddToCartButton key={true} size={"md"} data={product} />
 
         {/* Love Count */}
         <Flex
