@@ -260,8 +260,11 @@ const OrderCheckoutComponent = () => {
         <Box
           p={4}
           minW={{ base: "100%", md: "400px" }}
-          bgGradient="linear(to-t, rgba(187, 65, 65, 0.4), rgba(253, 134, 100, 0.1))"
-          borderRadius="8px"
+          bg="gray.50" // light gray background
+          borderRadius="12px"
+          boxShadow="md"
+          border="1px solid"
+          borderColor="gray.200"
         >
           <Stack spacing={3}>
             <Flex justify="space-between">
@@ -278,7 +281,7 @@ const OrderCheckoutComponent = () => {
               {/* <Text>RS. {totalGstAmount}</Text> */}
               <Text>RS. XX</Text>
             </Flex>
-            <Separator colorPalette="white" />
+            <Separator my={2} borderColor="gray.300" />
             <Flex justify="space-between" fontWeight="semibold">
               <Text>You need to pay</Text>
               {/* <Text>RS. {totalAmount}</Text> */}
