@@ -51,10 +51,10 @@ export default function SearchComponent() {
         placeholder="Search products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        mb={4}
+        mb={2}
         borderRadius="lg"
       />
-      <Box overflowY="auto" py={5}>
+      <Box overflowY="auto" py={2}>
         {loading ? (
           // Display a set of skeletons while loading
           <VStack spacing={4}>

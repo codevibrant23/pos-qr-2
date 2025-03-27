@@ -46,7 +46,7 @@ export default function SearchDialog() {
                 <CloseButton size="sm" />
               </DialogCloseTrigger>
             </DialogHeader>
-            <DialogBody>
+            <DialogBody py={0}>
               <SearchComponent />
             </DialogBody>
             <DialogFooter>

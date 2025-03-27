@@ -5,7 +5,7 @@ import { Button, ButtonGroup, IconButton } from "@chakra-ui/react";
 import { Minus, Plus } from "lucide-react";
 import React from "react";
 
-export default function AddToCartButton({ size, data: product }) {
+export default function AddToCartButton({ size = "sm", data: product }) {
   const { getItemQuantity, addItem, decrementItem } = useCart();
   const qty = getItemQuantity(product?.id);
 
@@ -14,6 +14,7 @@ export default function AddToCartButton({ size, data: product }) {
       {!qty || qty < 1 ? (
         <Button
           size={size}
+          minW={62}
           variant="outline"
           colorPalette="orange"
           bgColor="white"

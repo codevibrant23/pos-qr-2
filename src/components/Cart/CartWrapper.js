@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {
   Button,
   CloseButton,
+  DrawerActionTrigger,
   DrawerBody,
   DrawerCloseTrigger,
   DrawerContent,
@@ -19,10 +20,14 @@ import {
 } from "@chakra-ui/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useCart } from "@/context/CartContext";
+import CartItemsList from "./CartItemsList";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
   const { cart, totalCartQuantity, totalCartAmount } = useCart();
+  const { outlet } = useParams();
   if (totalCartQuantity == 0) return;
 
   return (
@@ -33,7 +38,6 @@ export default function CartWrapper() {
             bg="orange.400"
             minH="52px"
             w="full"
-            borderRadius="md"
             boxShadow="md"
             transition="all 0.2s ease-in-out"
             _hover={{
@@ -55,26 +59,31 @@ export default function CartWrapper() {
         <Portal>
           {/* <DrawerBackdrop /> */}
           <DrawerPositioner padding="2">
-            <DrawerContent>
+            <DrawerContent borderRadius="xl">
               <DrawerHeader display="flex" justifyContent="space-between">
-                <DrawerTitle>Drawer Title</DrawerTitle>
+                <DrawerTitle>Cart</DrawerTitle>
                 <DrawerCloseTrigger asChild>
                   <CloseButton size="sm" />
                 </DrawerCloseTrigger>
               </DrawerHeader>
-              <DrawerBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+              <DrawerBody px={2} py={0}>
+                <CartItemsList items={cart} />
               </DrawerBody>
-              <DrawerFooter>
+              <DrawerFooter p={2}>
                 <DrawerCloseTrigger asChild>
-                  <Button variant="outline">Cancel</Button>
+                  <Button
+                    variant="outline"
+                    colorPalette="orange"
+                    borderRadius="xl"
+                  >
+                    Cancel
+                  </Button>
                 </DrawerCloseTrigger>
-                <DrawerCloseTrigger asChild>
-                  <Button>Save</Button>
-                </DrawerCloseTrigger>
+                <DrawerActionTrigger asChild flex={1}>
+                  <Button colorPalette="orange" borderRadius="xl" asChild>
+                    <Link href={`/${outlet}/checkout`}>Checkout</Link>
+                  </Button>
+                </DrawerActionTrigger>
               </DrawerFooter>
             </DrawerContent>
           </DrawerPositioner>
