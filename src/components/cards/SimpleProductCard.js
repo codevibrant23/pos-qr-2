@@ -18,7 +18,7 @@ export default function SimpleProductCard({ product }) {
       w="full"
     >
       {/* Left Section - Text Details */}
-      <Stack mr={1} gap={1} flex="1">
+      <Stack mr={4} gap={1} flex="1">
         <Box
           flexShrink={0}
           boxSize={6}

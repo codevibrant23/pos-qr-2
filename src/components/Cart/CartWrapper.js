@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import {
+  Box,
   Button,
   CloseButton,
   DrawerActionTrigger,
@@ -15,19 +16,18 @@ import {
   DrawerRoot,
   DrawerTitle,
   DrawerTrigger,
-  Flex,
+  Field,
   HStack,
+  Input,
   Portal,
   Separator,
-  Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useCart } from "@/context/CartContext";
 import CartItemsList from "./CartItemsList";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { Trash2 } from "lucide-react";
+import CartButtonTrigger from "./CartButtonTrigger";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
@@ -39,31 +39,10 @@ export default function CartWrapper() {
     <div className="static">
       <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)} size="xl">
         <DrawerTrigger asChild>
-          <Button
-            borderBottomRadius={0}
-            bg="orange.400"
-            minH="60px"
-            w="full"
-            boxShadow="md"
-            transition="all 0.2s ease-in-out"
-            _hover={{
-              bg: "orange.500",
-              transform: "scale(1.02)",
-            }}
-          >
-            <Flex justify="center" align="center" gap={4} w="full">
-              <Text fontSize="md" fontWeight="light" color="white">
-                Rs. {totalCartAmount}
-              </Text>
-              <Separator orientation="vertical" color="white" height="4" />
-              <Text fontSize="md" fontWeight="medium" colorPalette="white">
-                <span className="fw-semibold">{totalCartQuantity}</span>
-                {totalCartQuantity > 0 ? " items " : " item "}
-                added
-              </Text>
-              <BsFillArrowRightCircleFill size={18} color="white" />
-            </Flex>
-          </Button>
+          <CartButtonTrigger
+            totalCartAmount={totalCartAmount}
+            totalCartQuantity={totalCartQuantity}
+          />
         </DrawerTrigger>
         <Portal>
           <DrawerBackdrop />
@@ -95,21 +74,43 @@ export default function CartWrapper() {
               <DrawerBody py={0} px={4}>
                 <CartItemsList items={cart} />
               </DrawerBody>
-              <DrawerFooter p={2}>
-                <DrawerCloseTrigger asChild>
-                  <Button
-                    variant="outline"
-                    colorPalette="orange"
-                    borderRadius="xl"
-                  >
-                    Cancel
-                  </Button>
-                </DrawerCloseTrigger>
-                <DrawerActionTrigger asChild flex={1}>
-                  <Button colorPalette="orange" borderRadius="xl" asChild>
-                    <Link href={`/${outlet}/checkout`}>Checkout</Link>
-                  </Button>
-                </DrawerActionTrigger>
+              <DrawerFooter flexDirection="column" p={2}>
+                <Separator color="gray.100" w="full"/>
+
+                <Box w="full" px={2}>
+                  <Field.Root required>
+                    <Field.Label>
+                      Name <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Input placeholder="Enter your name" rounded="xl" />
+                  </Field.Root>
+                  <Field.Root required>
+                    <Field.Label>
+                      Contact <Field.RequiredIndicator />
+                    </Field.Label>
+                    <Input placeholder="Enter your number" rounded="xl" />
+                    <Field.HelperText>
+                      Paperless bill will be sent to this number.
+                    </Field.HelperText>
+                    <Field.ErrorText>This field is required</Field.ErrorText>
+                  </Field.Root>
+                </Box>
+                <HStack gap={2} w="full">
+                  <DrawerCloseTrigger asChild>
+                    <Button
+                      variant="outline"
+                      colorPalette="orange"
+                      borderRadius="xl"
+                    >
+                      Close
+                    </Button>
+                  </DrawerCloseTrigger>
+                  <DrawerActionTrigger asChild flex={1}>
+                    <Button colorPalette="orange" borderRadius="xl" asChild>
+                      <Link href={`/${outlet}/checkout`}>Checkout</Link>
+                    </Button>
+                  </DrawerActionTrigger>
+                </HStack>
               </DrawerFooter>
             </DrawerContent>
           </DrawerPositioner>
