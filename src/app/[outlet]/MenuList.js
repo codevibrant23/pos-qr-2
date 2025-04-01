@@ -19,8 +19,9 @@ export default function MenuList({ data }) {
               fontSize="2xl"
               // fontWeight="medium"
               letterSpacing="tight"
-              p={3}
+              // p={3}
               mx={2}
+              mb={4}
             >
               {category_name}
             </Heading>

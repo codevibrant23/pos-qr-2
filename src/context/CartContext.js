@@ -5,14 +5,19 @@ import {
   getQuantity,
   getTotalCartAmount,
   getTotalCartQuantity,
-} from "@/lib/helpers/CartHelpers";
-import { createContext, useState, useContext } from "react";
-// Adjust the import path as needed
+} from "@/lib/helpers/cart/CartActions";
+import { createContext, useState, useContext, useEffect } from "react";
+import {
+  updateCartDataInLocalStorage,
+  loadCartFromLocalStorage,
+  getCartTimestamps,
+} from "@/lib/helpers/cart/localStorageHelpers";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => loadCartFromLocalStorage());
+  const [timestamps, setTimestamps] = useState(() => getCartTimestamps());
 
   /**
    * Adds a product (or its variant) to the cart or increments its quantity.
@@ -59,6 +64,11 @@ export const CartProvider = ({ children }) => {
     setCart([]);
   };
 
+  useEffect(() => {
+    updateCartDataInLocalStorage(cart);
+    setTimestamps(getCartTimestamps());
+  }, [cart]);
+
   return (
     <CartContext.Provider
       value={{
@@ -69,6 +79,7 @@ export const CartProvider = ({ children }) => {
         getItemQuantity,
         totalCartQuantity,
         totalCartAmount,
+        timestamps, // Contains createdOn and updatedOn values
       }}
     >
       {children}

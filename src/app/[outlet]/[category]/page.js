@@ -17,9 +17,9 @@ export default async function page({ params, searchParams }) {
     <>
       {items.map((p, i) => {
         return (
-          <div key={i}>
+        <div key={i}>
             <SimpleProductCard product={p} />
-            <Separator color="gray.100" w my={6} />
+            <Separator color="gray.100" my={6} />
           </div>
         );
       })}

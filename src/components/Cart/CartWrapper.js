@@ -5,6 +5,7 @@ import {
   Button,
   CloseButton,
   DrawerActionTrigger,
+  DrawerBackdrop,
   DrawerBody,
   DrawerCloseTrigger,
   DrawerContent,
@@ -15,18 +16,22 @@ import {
   DrawerTitle,
   DrawerTrigger,
   Flex,
+  HStack,
   Portal,
+  Separator,
+  Stack,
   Text,
 } from "@chakra-ui/react";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { useCart } from "@/context/CartContext";
 import CartItemsList from "./CartItemsList";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { Trash2 } from "lucide-react";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
-  const { cart, totalCartQuantity, totalCartAmount } = useCart();
+  const { cart, totalCartQuantity, totalCartAmount, clearCart } = useCart();
   const { outlet } = useParams();
   if (totalCartQuantity == 0) return;
 
@@ -35,8 +40,9 @@ export default function CartWrapper() {
       <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)} size="xl">
         <DrawerTrigger asChild>
           <Button
+            borderBottomRadius={0}
             bg="orange.400"
-            minH="52px"
+            minH="60px"
             w="full"
             boxShadow="md"
             transition="all 0.2s ease-in-out"
@@ -45,28 +51,46 @@ export default function CartWrapper() {
               transform: "scale(1.02)",
             }}
           >
-            <Flex justify="center" align="center" gap={4} w="full" p={4}>
-              <Text fontSize="md" fontWeight="medium" color="white">
-                {totalCartQuantity} Items
-              </Text>
-              <Text fontSize="md" fontWeight="medium" color="white">
+            <Flex justify="center" align="center" gap={4} w="full">
+              <Text fontSize="md" fontWeight="light" color="white">
                 Rs. {totalCartAmount}
               </Text>
-              <FaArrowRightLong size={18} color="white" />
+              <Separator orientation="vertical" color="white" height="4" />
+              <Text fontSize="md" fontWeight="medium" colorPalette="white">
+                <span className="fw-semibold">{totalCartQuantity}</span>
+                {totalCartQuantity > 0 ? " items " : " item "}
+                added
+              </Text>
+              <BsFillArrowRightCircleFill size={18} color="white" />
             </Flex>
           </Button>
         </DrawerTrigger>
         <Portal>
-          {/* <DrawerBackdrop /> */}
-          <DrawerPositioner padding="2">
+          <DrawerBackdrop />
+          <DrawerPositioner padding="4">
             <DrawerContent borderRadius="xl">
-              <DrawerHeader display="flex" justifyContent="space-between">
+              <DrawerHeader
+                display="flex"
+                justifyContent="space-between"
+                px={4}
+              >
                 <DrawerTitle>Cart</DrawerTitle>
-                <DrawerCloseTrigger asChild>
-                  <CloseButton size="sm" />
-                </DrawerCloseTrigger>
+                <HStack alignItems="center" gap={2}>
+                  <Button
+                    variant="subtle"
+                    colorPalette="red"
+                    size="sm"
+                    borderRadius="full"
+                    onClick={clearCart}
+                  >
+                    <Trash2 /> Clear
+                  </Button>
+                  <DrawerCloseTrigger asChild>
+                    <CloseButton size="sm" />
+                  </DrawerCloseTrigger>
+                </HStack>
               </DrawerHeader>
-              <DrawerBody px={2} py={0}>
+              <DrawerBody py={0} px={4}>
                 <CartItemsList items={cart} />
               </DrawerBody>
               <DrawerFooter p={2}>
