@@ -76,15 +76,17 @@ export default function CartWrapper() {
               >
                 <DrawerTitle>Cart</DrawerTitle>
                 <HStack alignItems="center" gap={2}>
-                  <Button
-                    variant="subtle"
-                    colorPalette="red"
-                    size="sm"
-                    borderRadius="full"
-                    onClick={clearCart}
-                  >
-                    <Trash2 /> Clear
-                  </Button>
+                  <DrawerCloseTrigger asChild>
+                    <Button
+                      variant="subtle"
+                      colorPalette="red"
+                      size="sm"
+                      borderRadius="full"
+                      onClick={clearCart}
+                    >
+                      <Trash2 /> Clear
+                    </Button>
+                  </DrawerCloseTrigger>
                   <DrawerCloseTrigger asChild>
                     <CloseButton size="sm" />
                   </DrawerCloseTrigger>
