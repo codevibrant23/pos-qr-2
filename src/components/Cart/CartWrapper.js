@@ -38,7 +38,7 @@ export default function CartWrapper() {
   return (
     <div className="static">
       <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)} size="xl">
-        <DrawerTrigger asChild>
+        <DrawerTrigger asChild zIndex={20}>
           <CartButtonTrigger
             totalCartAmount={totalCartAmount}
             totalCartQuantity={totalCartQuantity}
@@ -75,7 +75,7 @@ export default function CartWrapper() {
                 <CartItemsList items={cart} />
               </DrawerBody>
               <DrawerFooter flexDirection="column" p={2}>
-                <Separator color="gray.100" w="full"/>
+                <Separator color="gray.100" w="full" />
 
                 <Box w="full" px={2}>
                   <Field.Root required>
@@ -95,7 +95,7 @@ export default function CartWrapper() {
                     <Field.ErrorText>This field is required</Field.ErrorText>
                   </Field.Root>
                 </Box>
-                <Separator color="gray.100" w="full"/>
+                <Separator color="gray.100" w="full" />
                 <HStack gap={2} w="full">
                   <DrawerCloseTrigger asChild>
                     <Button

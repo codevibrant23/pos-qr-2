@@ -38,7 +38,7 @@ export default function Carousel({
   return (
     <div className="relative w-full">
       {/* Carousel Wrapper */}
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+      <div className="relative h-56 overflow-hidden rounded-lg md:h-96 z-10">
         {banners.map((banner, index) => (
           <div
             key={index}
@@ -61,7 +61,7 @@ export default function Carousel({
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
+      <div className="absolute z-10 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
         {banners.map((_, index) => (
           <button
             key={index}
@@ -78,11 +78,11 @@ export default function Carousel({
       <button
         type="button"
         onClick={previousSlide}
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
+        className="absolute top-0 -left-10 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white">
           <svg
-            className="w-4 h-4 text-white"
+            className="w-4 h-4 text-black"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -104,11 +104,11 @@ export default function Carousel({
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
+        className="absolute top-0 -right-10 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white">
           <svg
-            className="w-4 h-4 text-white"
+            className="w-4 h-4 text-black"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

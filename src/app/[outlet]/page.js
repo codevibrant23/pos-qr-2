@@ -39,7 +39,7 @@ export default async function Page({ params, searchParams }) {
         </Heading>
         <CategoryList outlet={outlet} />
       </Box>
-      <Box my={5}>
+      <Box my={5} px={10} py={6} bgColor="gray.200">
         <Carousel banners={banners.banners} autoPlay={true} />
       </Box>
       {/* Special Menu */}
