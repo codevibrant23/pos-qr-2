@@ -95,6 +95,7 @@ export default function CartWrapper() {
                     <Field.ErrorText>This field is required</Field.ErrorText>
                   </Field.Root>
                 </Box>
+                <Separator color="gray.100" w="full"/>
                 <HStack gap={2} w="full">
                   <DrawerCloseTrigger asChild>
                     <Button
