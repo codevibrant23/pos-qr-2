@@ -38,10 +38,10 @@ export default function AddToCartButton({ size = "sm", data: product }) {
             borderStartRadius={20}
             borderEndRadius={0}
             onClick={() => {
-              addItem(product);
+              decrementItem(product);
             }}
           >
-            <Plus />
+            <Minus />
           </IconButton>
           <Button
             variant="subtle"
@@ -57,10 +57,10 @@ export default function AddToCartButton({ size = "sm", data: product }) {
             borderStartRadius={0}
             borderEndRadius={20}
             onClick={() => {
-              decrementItem(product);
+              addItem(product);
             }}
           >
-            <Minus />
+            <Plus />
           </IconButton>
         </ButtonGroup>
       )}

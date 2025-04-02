@@ -21,6 +21,8 @@ import {
   Input,
   Portal,
   Separator,
+  Icon,
+  Stack,
 } from "@chakra-ui/react";
 import { useCart } from "@/context/CartContext";
 import CartItemsList from "./CartItemsList";
@@ -28,6 +30,11 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import CartButtonTrigger from "./CartButtonTrigger";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { InputGroup } from "../ui/input-group";
+import { CiDiscount1, CiUser } from "react-icons/ci";
+import { BsCart4 } from "react-icons/bs";
+import { FiPhone } from "react-icons/fi";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
@@ -45,15 +52,21 @@ export default function CartWrapper() {
           />
         </DrawerTrigger>
         <Portal>
-          <DrawerBackdrop />
-          <DrawerPositioner padding="4">
+          <DrawerBackdrop bgColor="blackAlpha.700" />
+          <DrawerPositioner padding="2">
             <DrawerContent borderRadius="xl">
               <DrawerHeader
                 display="flex"
                 justifyContent="space-between"
                 px={4}
+                py={5}
               >
-                <DrawerTitle>Cart</DrawerTitle>
+                <DrawerTitle>
+                  <HStack alignItems="center" gap={2}>
+                    <Icon as={BsCart4} /> <span>Cart</span>
+                  </HStack>
+                </DrawerTitle>
+
                 <HStack alignItems="center" gap={2}>
                   <DrawerCloseTrigger asChild>
                     <Button
@@ -76,25 +89,49 @@ export default function CartWrapper() {
               </DrawerBody>
               <DrawerFooter flexDirection="column" p={2}>
                 <Separator color="gray.100" w="full" />
-
                 <Box w="full" px={2}>
+                  <Field.Root>
+                    {/* <Field.Label>
+                      Coupon code <Field.RequiredIndicator />
+                    </Field.Label> */}
+                    <InputGroup
+                      startElement={<Icon as={CiDiscount1} />}
+                      w="full"
+                    >
+                      <Input placeholder="Coupon Code" rounded="xl" />
+                    </InputGroup>
+                  </Field.Root>
+                </Box>
+                <Separator color="gray.100" w="full" />
+
+                <Stack alignItems="stretch" w="full" px={2}>
                   <Field.Root required>
-                    <Field.Label>
+                    {/* <Field.Label>
                       Name <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Input placeholder="Enter your name" rounded="xl" />
+                    </Field.Label> */}
+                    <InputGroup
+                      startElement={<Icon as={CiUser} />}
+                      w="full"
+                    >
+                      <Input placeholder="Enter your name" rounded="xl" />
+                    </InputGroup>
                   </Field.Root>
                   <Field.Root required>
-                    <Field.Label>
+                    {/* <Field.Label>
                       Contact <Field.RequiredIndicator />
-                    </Field.Label>
-                    <Input placeholder="Enter your number" rounded="xl" />
+                    </Field.Label> */}
+                    <InputGroup
+                      startElement={<Icon as={FiPhone} />}
+                      w="full"
+                    >
+                      <Input placeholder="Enter your number" rounded="xl" />
+                    </InputGroup>
                     <Field.HelperText>
                       Paperless bill will be sent to this number.
                     </Field.HelperText>
                     <Field.ErrorText>This field is required</Field.ErrorText>
                   </Field.Root>
-                </Box>
+                </Stack>
                 <Separator color="gray.100" w="full" />
                 <HStack gap={2} w="full">
                   <DrawerCloseTrigger asChild>
@@ -102,13 +139,29 @@ export default function CartWrapper() {
                       variant="outline"
                       colorPalette="orange"
                       borderRadius="xl"
+                      size="md"
                     >
                       Close
                     </Button>
                   </DrawerCloseTrigger>
                   <DrawerActionTrigger asChild flex={1}>
-                    <Button colorPalette="orange" borderRadius="xl" asChild>
-                      <Link href={`/${outlet}/checkout`}>Checkout</Link>
+                    <Button
+                      colorPalette="orange"
+                      borderRadius="xl"
+                      asChild
+                      size="md"
+                    >
+                      <Link href={`/${outlet}/checkout`}>
+                        <HStack alignItems="center" gap={3}>
+                          Rs. {totalCartAmount}
+                          <Separator
+                            orientation="vertical"
+                            color="white"
+                            height="4"
+                          />
+                          Checkout <Icon as={MdOutlineShoppingCartCheckout} />
+                        </HStack>
+                      </Link>
                     </Button>
                   </DrawerActionTrigger>
                 </HStack>

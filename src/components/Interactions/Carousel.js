@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Carousel({
   banners,
@@ -38,12 +37,12 @@ export default function Carousel({
   return (
     <div className="relative w-full">
       {/* Carousel Wrapper */}
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96 z-10">
+      <div className="relative h-56 overflow-hidden md:h-96 z-10">
         {banners.map((banner, index) => (
           <div
             key={index}
             className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-              index === activeIndex ? 'opacity-100' : 'opacity-0'
+              index === activeIndex ? "opacity-100" : "opacity-0"
             }`}
           >
             <Link href={banner.redirect_url}>
@@ -52,7 +51,7 @@ export default function Carousel({
                   src={banner.image_url}
                   alt={`Banner ${index + 1}`}
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: "cover" }}
                 />
               </div>
             </Link>
@@ -67,7 +66,7 @@ export default function Carousel({
             key={index}
             onClick={() => setActiveIndex(index)}
             className={`w-3 h-3 rounded-full ${
-              index === activeIndex ? 'bg-white' : 'bg-white/50'
+              index === activeIndex ? "bg-white" : "bg-white/50"
             }`}
             aria-label={`Slide ${index + 1}`}
           ></button>
@@ -75,10 +74,10 @@ export default function Carousel({
       </div>
 
       {/* Previous Button */}
-      <button
+      {/* <button
         type="button"
         onClick={previousSlide}
-        className="absolute top-0 -left-10 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
+        className="absolute top-0 left-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white">
           <svg
@@ -98,13 +97,13 @@ export default function Carousel({
           </svg>
           <span className="sr-only">Previous</span>
         </span>
-      </button>
+      </button> */}
 
       {/* Next Button */}
-      <button
+      {/* <button
         type="button"
         onClick={nextSlide}
-        className="absolute top-0 -right-10 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
+        className="absolute top-0 right-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50 focus:ring-4 focus:ring-white">
           <svg
@@ -124,7 +123,7 @@ export default function Carousel({
           </svg>
           <span className="sr-only">Next</span>
         </span>
-      </button>
+      </button> */}
     </div>
   );
 }

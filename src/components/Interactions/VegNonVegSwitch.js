@@ -71,7 +71,7 @@ export default function VegNonVegSwitch() {
             <Switch.ThumbIndicator
               fallback={<Icon as={GiChicken} color="red" />}
             >
-              <Icon as={GiChickenOven} color="white" />
+              <Icon as={GiChicken} color="white" />
             </Switch.ThumbIndicator>
           </Switch.Thumb>
         </Switch.Control>
