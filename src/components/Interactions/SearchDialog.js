@@ -21,7 +21,11 @@ import SearchComponent from "./SearchComponent";
 
 export default function SearchDialog() {
   return (
-    <DialogRoot size="full" motionPreset="slide-in-bottom">
+    <DialogRoot
+      size="full"
+      motionPreset="slide-in-bottom"
+      scrollBehavior="inside"
+    >
       <DialogTrigger asChild>
         <Button
           variant="subtle"
@@ -46,18 +50,18 @@ export default function SearchDialog() {
                 <CloseButton size="sm" />
               </DialogCloseTrigger>
             </DialogHeader>
-            <DialogBody py={0}>
+            <DialogBody py={2}>
               <SearchComponent />
             </DialogBody>
             <DialogFooter>
               {/* <DialogActionTrigger asChild>
                 <Button variant="outline">Cancel</Button>
               </DialogActionTrigger> */}
-              <DialogCloseTrigger asChild>
+              <DialogCloseTrigger asChild flex={1}>
                 <Button
-                  borderRadius="lg"
+                  borderRadius="2xl"
                   colorPalette="orange"
-                  variant="subtle"
+                  variant="surface"
                 >
                   Close
                 </Button>

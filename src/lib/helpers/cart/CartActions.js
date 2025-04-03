@@ -63,7 +63,9 @@ export const getTotalCartQuantity = (cart) => {
 export const getTotalCartAmount = (cart) => {
   return cart.reduce((total, item) => {
     // Use variant_price if present, otherwise use price
-    const price = item.variant_price ? parseFloat(item.variant_price) : parseFloat(item.price);
+    const price = item.variant_price
+      ? parseFloat(item.variant_price)
+      : parseFloat(item.price);
     return total + price * item.quantity;
   }, 0);
 };
@@ -143,15 +145,27 @@ const addVariantDetails = (productData, selectedVariant) => {
 };
 
 /**
+ * Finds a variant in the product's variants array by its ID.
+ */
+const findVariantById = (product, variantId) => {
+  return product.variants?.find((variant) => variant.id === variantId) || null;
+};
+
+/**
  * Constructs a cart item from a product and an optional selectedVariant.
  * The resulting item has an initial quantity of 1.
  */
-const buildCartItemInternal = (product, selectedVariant = null) => {
+const buildCartItemInternal = (product, selectedVariantId = null) => {
   const productData = getProductDataWithoutVariants(product);
   const baseItem = { ...productData, quantity: 1 };
-  if (selectedVariant) {
-    return addVariantDetails(baseItem, selectedVariant);
+
+  if (selectedVariantId) {
+    const selectedVariant = findVariantById(product, selectedVariantId);
+    if (selectedVariant) {
+      return addVariantDetails(baseItem, selectedVariant);
+    }
   }
+
   return baseItem;
 };
 

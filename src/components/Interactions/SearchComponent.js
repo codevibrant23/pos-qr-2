@@ -53,6 +53,7 @@ export default function SearchComponent() {
         onChange={(e) => setSearchTerm(e.target.value)}
         mb={2}
         borderRadius="lg"
+        colorPalette="orange"
       />
       <Box overflowY="auto" py={2}>
         {loading ? (

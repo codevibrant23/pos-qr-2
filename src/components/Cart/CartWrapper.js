@@ -35,6 +35,7 @@ import { InputGroup } from "../ui/input-group";
 import { CiDiscount1, CiUser } from "react-icons/ci";
 import { BsCart4 } from "react-icons/bs";
 import { FiPhone } from "react-icons/fi";
+import PaymentMode from "../Checkout/PaymentMode";
 
 export default function CartWrapper() {
   const [open, setOpen] = useState(false);
@@ -98,7 +99,11 @@ export default function CartWrapper() {
                       startElement={<Icon as={CiDiscount1} />}
                       w="full"
                     >
-                      <Input placeholder="Coupon Code" rounded="xl" />
+                      <Input
+                        placeholder="Coupon Code"
+                        rounded="xl"
+                        colorPalette="orange"
+                      />
                     </InputGroup>
                   </Field.Root>
                 </Box>
@@ -109,22 +114,24 @@ export default function CartWrapper() {
                     {/* <Field.Label>
                       Name <Field.RequiredIndicator />
                     </Field.Label> */}
-                    <InputGroup
-                      startElement={<Icon as={CiUser} />}
-                      w="full"
-                    >
-                      <Input placeholder="Enter your name" rounded="xl" />
+                    <InputGroup startElement={<Icon as={CiUser} />} w="full">
+                      <Input
+                        placeholder="Enter your name"
+                        rounded="xl"
+                        colorPalette="orange"
+                      />
                     </InputGroup>
                   </Field.Root>
                   <Field.Root required>
                     {/* <Field.Label>
                       Contact <Field.RequiredIndicator />
                     </Field.Label> */}
-                    <InputGroup
-                      startElement={<Icon as={FiPhone} />}
-                      w="full"
-                    >
-                      <Input placeholder="Enter your number" rounded="xl" />
+                    <InputGroup startElement={<Icon as={FiPhone} />} w="full">
+                      <Input
+                        placeholder="Enter your number"
+                        rounded="xl"
+                        colorPalette="orange"
+                      />
                     </InputGroup>
                     <Field.HelperText>
                       Paperless bill will be sent to this number.
@@ -132,6 +139,8 @@ export default function CartWrapper() {
                     <Field.ErrorText>This field is required</Field.ErrorText>
                   </Field.Root>
                 </Stack>
+                <Separator color="gray.100" w="full" />
+                <PaymentMode />
                 <Separator color="gray.100" w="full" />
                 <HStack gap={2} w="full">
                   <DrawerCloseTrigger asChild>
@@ -148,20 +157,20 @@ export default function CartWrapper() {
                     <Button
                       colorPalette="orange"
                       borderRadius="xl"
-                      asChild
+                      // asChild
                       size="md"
                     >
-                      <Link href={`/${outlet}/checkout`}>
+                      {/* <Link href={`/${outlet}/checkout`}> */}
                         <HStack alignItems="center" gap={3}>
-                          Rs. {totalCartAmount}
+                          <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
                           <Separator
                             orientation="vertical"
                             color="white"
                             height="4"
                           />
-                          Checkout <Icon as={MdOutlineShoppingCartCheckout} />
+                          Rs. {totalCartAmount}
                         </HStack>
-                      </Link>
+                      {/* </Link> */}
                     </Button>
                   </DrawerActionTrigger>
                 </HStack>
