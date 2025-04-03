@@ -8,23 +8,54 @@ import React from "react";
 import VariantDialog from "./VariantDialog";
 
 export default function AddToCartButton({ size = "sm", data: product }) {
-  const { getItemQuantity, addItem, decrementItem } = useCart();
-  const [open, setOpen] = useState(false);
-  const qty = getItemQuantity(product?.id);
+  const {
+    cartTrigger: { openCart },
+    getItemQuantity,
+    addItem,
+    decrementItem,
+    isProductVariant,
+    checkMultipleVaraintsInCart,
+  } = useCart();
+  const [variantDialog, setOpen] = useState(false);
+  const qty = getItemQuantity(product);
 
   // Helper function: if variants exist, open dialog; else, add item directly.
   const handleAddItem = () => {
-    if (product?.variants && product.variants.length > 0) {
+    if (product?.variants && product.variants?.length > 0) {
       setOpen(true);
     } else {
       addItem(product);
+    }
+  };
+  const handleAddVariant = (variantId) => {
+    addItem(product, variantId);
+    setOpen(false);
+  };
+
+  const handleRemoveItem = () => {
+    if (isProductVariant(product)) {
+      decrementItem(product);
+    } else {
+      if (
+        checkMultipleVaraintsInCart(product?.id) ||
+        product?.variants?.length > 0
+      ) {
+        openCart();
+      } else {
+        decrementItem(product);
+      }
     }
   };
 
   return (
     <>
       {product?.variants?.length > 0 && (
-        <VariantDialog open={open} setOpen={setOpen} product={product} />
+        <VariantDialog
+          open={variantDialog}
+          setOpen={setOpen}
+          product={product}
+          addVariant={handleAddVariant}
+        />
       )}
       <>
         {!qty || qty < 1 ? (
@@ -50,9 +81,7 @@ export default function AddToCartButton({ size = "sm", data: product }) {
             <IconButton
               borderStartRadius={20}
               borderEndRadius={0}
-              onClick={() => {
-                decrementItem(product);
-              }}
+              onClick={handleRemoveItem}
             >
               <Minus />
             </IconButton>

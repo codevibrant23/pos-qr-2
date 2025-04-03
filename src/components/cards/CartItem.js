@@ -30,7 +30,7 @@ export default function CartItem({ product }) {
             {true ? <VegIcon /> : <NonVegIcon />}
           </Box>
           <Text fontSize="sm" color="gray.600">
-            Rs. {product.price}
+            Rs. {product.variant_price || product.price}
           </Text>
         </Flex>
       </Stack>

@@ -1,9 +1,7 @@
 import React from "react";
 import {
-  Box,
   Button,
   CloseButton,
-  DialogActionTrigger,
   DialogBackdrop,
   DialogBody,
   DialogCloseTrigger,
@@ -13,25 +11,24 @@ import {
   DialogPositioner,
   DialogRoot,
   DialogTitle,
-  DialogTrigger,
   Portal,
-  RadioGroup,
-  Radio,
-  RadioCard,
-  HStack,
-  Icon,
-  Image,
   Stack,
+  RadioCardRoot,
+  RadioCardLabel,
+  RadioCardItem,
+  RadioCardItemHiddenInput,
+  RadioCardItemControl,
+  RadioCardItemContent,
+  RadioCardItemText,
+  RadioCardItemDescription,
+  RadioCardItemIndicator,
+  RadioCardItemAddon,
 } from "@chakra-ui/react";
 
-export default function VariantDialog({
-  open,
-  setOpen,
-  product,
-  value,
-  setValue,
-}) {
-  console.log(product);
+export default function VariantDialog({ open, setOpen, product, addVariant }) {
+  const handleVariantSelect = (e) => {
+    addVariant(e.value);
+  };
   return (
     <DialogRoot
       lazyMount
@@ -56,32 +53,42 @@ export default function VariantDialog({
               </DialogCloseTrigger>
             </DialogHeader>
             <DialogBody py={4}>
-              <RadioCard.Root defaultValue="none" colorPalette="orange" value={value} onValueChange={(e) => setValue(e.value)}>
+              <RadioCardRoot
+                defaultValue="none"
+                colorPalette="orange"
+                onValueChange={handleVariantSelect}
+              >
+                <RadioCardLabel>Please select to add product.</RadioCardLabel>
+
                 <Stack align="stretch">
                   {product.variants.map((item) => (
-                    <RadioCard.Item key={item.id} value={item.id} borderRadius="lg">
-                      <RadioCard.ItemHiddenInput />
-                      <RadioCard.ItemControl>
-                        <RadioCard.ItemContent>
-                          <RadioCard.ItemText>{item.name}</RadioCard.ItemText>
-                          <RadioCard.ItemDescription>
+                    <RadioCardItem
+                      key={item.id}
+                      value={item.id}
+                      borderRadius="lg"
+                    >
+                      <RadioCardItemHiddenInput />
+                      <RadioCardItemControl>
+                        <RadioCardItemContent>
+                          <RadioCardItemText>{item.name}</RadioCardItemText>
+                          <RadioCardItemDescription>
                             {item.price}
-                          </RadioCard.ItemDescription>
-                        </RadioCard.ItemContent>
-                        <RadioCard.ItemIndicator />
-                      </RadioCard.ItemControl>
-                      <RadioCard.ItemAddon>Description</RadioCard.ItemAddon>
-                    </RadioCard.Item>
+                          </RadioCardItemDescription>
+                        </RadioCardItemContent>
+                        <RadioCardItemIndicator />
+                      </RadioCardItemControl>
+                      <RadioCardItemAddon>Description</RadioCardItemAddon>
+                    </RadioCardItem>
                   ))}
-                  <RadioCard.Item key="none" value="none" borderRadius="lg">
-                    <RadioCard.ItemHiddenInput />
-                    <RadioCard.ItemControl>
-                      <RadioCard.ItemText>None</RadioCard.ItemText>
-                      <RadioCard.ItemIndicator />
-                    </RadioCard.ItemControl>
-                  </RadioCard.Item>
+                  <RadioCardItem key="none" value="none" borderRadius="lg">
+                    <RadioCardItemHiddenInput />
+                    <RadioCardItemControl>
+                      <RadioCardItemText>None</RadioCardItemText>
+                      <RadioCardItemIndicator />
+                    </RadioCardItemControl>
+                  </RadioCardItem>
                 </Stack>
-              </RadioCard.Root>
+              </RadioCardRoot>
             </DialogBody>
             <DialogFooter>
               <DialogCloseTrigger asChild>

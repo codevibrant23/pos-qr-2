@@ -38,14 +38,23 @@ import { FiPhone } from "react-icons/fi";
 import PaymentMode from "../Checkout/PaymentMode";
 
 export default function CartWrapper() {
-  const [open, setOpen] = useState(false);
-  const { cart, totalCartQuantity, totalCartAmount, clearCart } = useCart();
+  const {
+    cartTrigger: { cartState, toggle },
+    cart,
+    totalCartQuantity,
+    totalCartAmount,
+    clearCart,
+  } = useCart();
   const { outlet } = useParams();
   if (totalCartQuantity == 0) return;
 
   return (
     <div className="static">
-      <DrawerRoot open={open} onOpenChange={(e) => setOpen(e.open)} size="xl">
+      <DrawerRoot
+        open={cartState}
+        onOpenChange={(e) => toggle(e.open)}
+        size="xl"
+      >
         <DrawerTrigger asChild zIndex={20}>
           <CartButtonTrigger
             totalCartAmount={totalCartAmount}
@@ -161,15 +170,15 @@ export default function CartWrapper() {
                       size="md"
                     >
                       {/* <Link href={`/${outlet}/checkout`}> */}
-                        <HStack alignItems="center" gap={3}>
-                          <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
-                          <Separator
-                            orientation="vertical"
-                            color="white"
-                            height="4"
-                          />
-                          Rs. {totalCartAmount}
-                        </HStack>
+                      <HStack alignItems="center" gap={3}>
+                        <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
+                        <Separator
+                          orientation="vertical"
+                          color="white"
+                          height="4"
+                        />
+                        Rs. {totalCartAmount}
+                      </HStack>
                       {/* </Link> */}
                     </Button>
                   </DrawerActionTrigger>

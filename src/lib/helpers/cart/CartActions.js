@@ -26,20 +26,50 @@ export const decrementCartItem = (cart, targetItem) => {
 };
 
 /**
- * Returns the quantity for a given product (and variant if provided) in the cart.
+ * Returns the quantity for a given product in the cart.
+ *
+ * Three scenarios are handled:
+ * 1. If the product object has a "variants" array (base product with variants)
+ *    and no specific variant is selected, the function sums the quantities
+ *    of all variant items for that product in the cart.
+ * 2. If the product is a simple product with no variants, it returns the
+ *    quantity of the matching cart item (with no variant_id).
+ * 3. If the product object includes a "variant_id" (i.e. it's a specific variant),
+ *    it returns the quantity for that variant.
  *
  * @param {Array} cart - The current cart array.
- * @param {number|string} productId - The product id.
- * @param {number|string|null} variantId - The variant id, if applicable.
- * @returns {number} The quantity of the matching cart item, or 0 if not found.
+ * @param {Object} product - The product object.
+ * @returns {number} The quantity of the matching cart item(s), or 0 if not found.
  */
-export const getQuantity = (cart, productId, variantId = null) => {
-  const foundItem = cart.find((item) => {
-    if (variantId != null) {
-      return item.id === productId && item.variant_id === variantId;
-    }
-    return item.id === productId && !item.variant_id;
-  });
+export const getQuantity = (cart, product) => {
+  const productId = product.id;
+
+  // Scenario 1: Base product with variants (no specific variant selected)
+  if (
+    product.variants &&
+    product.variants.length > 0 &&
+    product.variant_id == null
+  ) {
+    return cart.reduce((total, item) => {
+      if (item.id === productId && item.variant_id != null) {
+        return total + item.quantity;
+      }
+      return total;
+    }, 0);
+  }
+
+  // Scenario 3: Specific variant product (variant_id provided)
+  if (product.variant_id != null) {
+    const foundItem = cart.find(
+      (item) => item.id === productId && item.variant_id === product.variant_id
+    );
+    return foundItem ? foundItem.quantity : 0;
+  }
+
+  // Scenario 2: Simple product (no variants)
+  const foundItem = cart.find(
+    (item) => item.id === productId && item.variant_id == null
+  );
   return foundItem ? foundItem.quantity : 0;
 };
 
@@ -70,6 +100,36 @@ export const getTotalCartAmount = (cart) => {
   }, 0);
 };
 
+/**
+ * Returns true if the cart contains multiple variant items for the given product.
+ *
+ * @param {Array} cart - The current cart array.
+ * @param {number|string} productId - The product id.
+ * @returns {boolean} True if multiple variants are present, false otherwise.
+ */
+export const hasMultipleVariantsInCart = (cart, productId) => {
+  const variantItems = cart.filter(
+    (item) => item.id === productId && item.variant_id != null
+  );
+  return variantItems.length > 1;
+};
+
+/**
+ * Returns the list of variant items for the given product in the cart.
+ *
+ * @param {Array} cart - The current cart array.
+ * @param {number|string} productId - The product id.
+ * @returns {Array} The list of variant items.
+ */
+export const getVariantsInCartForProduct = (cart, productId) => {
+  return cart.filter(
+    (item) => item.id === productId && item.variant_id != null
+  );
+};
+
+export const isProductVariant = (product) => {
+  return isVariantItem(product);
+};
 
 // -------------------- Private Helper Functions --------------------
 
@@ -139,8 +199,9 @@ const addVariantDetails = (productData, selectedVariant) => {
     ...productData,
     variant_id: selectedVariant.id,
     variant_name: selectedVariant.name,
-    variant_price: selectedVariant.variant_price,
+    variant_price: selectedVariant.price,
     variant_image: selectedVariant.variant_image,
+    variant_description: selectedVariant.extra_description,
   };
 };
 
