@@ -210,26 +210,26 @@ export default function CartWrapper() {
                           Close
                         </Button>
                       </DrawerCloseTrigger>
-                      {/* <DrawerActionTrigger asChild flex={1}> */}
-                      <Button
-                        type="submit"
-                        colorPalette="orange"
-                        borderRadius="xl"
-                        size="md"
-                        flex={1}
-                        // onClick={() => initiatePayment({})}
-                      >
-                        <HStack alignItems="center" gap={3}>
-                          <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
-                          <Separator
-                            orientation="vertical"
-                            color="white"
-                            height="4"
-                          />
-                          Rs. {totalCartAmount}
-                        </HStack>
-                      </Button>
-                      {/* </DrawerActionTrigger> */}
+                      <DrawerActionTrigger asChild flex={1}>
+                        <Button
+                          type="submit"
+                          colorPalette="orange"
+                          borderRadius="xl"
+                          size="md"
+                          flex={1}
+                          // onClick={() => initiatePayment({})}
+                        >
+                          <HStack alignItems="center" gap={3}>
+                            <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
+                            <Separator
+                              orientation="vertical"
+                              color="white"
+                              height="4"
+                            />
+                            Rs. {totalCartAmount}
+                          </HStack>
+                        </Button>
+                      </DrawerActionTrigger>
                     </HStack>
                   </Stack>
                 </form>
