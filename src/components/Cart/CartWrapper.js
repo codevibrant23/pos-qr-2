@@ -42,7 +42,7 @@ import { Controller, useForm } from "react-hook-form";
 
 export default function CartWrapper() {
   const {
-    cartTrigger: { cartState, toggle },
+    cartTrigger: { cartState, toggle, closeCart },
     cart,
     totalCartQuantity,
     totalCartAmount,
@@ -60,9 +60,13 @@ export default function CartWrapper() {
     defaultValues: {
       method: "upi",
     },
+    mode: "onChange",
   });
 
-  const onSubmit = handleSubmit((data) => initiatePayment(data));
+  const onSubmit = handleSubmit((data) => {
+    closeCart();
+    initiatePayment(data);
+  });
 
   if (totalCartQuantity == 0) return;
 
@@ -116,12 +120,12 @@ export default function CartWrapper() {
                 <CartItemsList items={cart} />
               </DrawerBody>
               <DrawerFooter flexDirection="column" p={2}>
-                <Separator color="gray.100" w="full" />
+                {/* <Separator color="gray.100" w="full" />
                 <Box w="full" px={2}>
                   <Field.Root>
-                    {/* <Field.Label>
+                    <Field.Label>
                       Coupon code <Field.RequiredIndicator />
-                    </Field.Label> */}
+                    </Field.Label>
                     <InputGroup
                       startElement={<Icon as={CiDiscount1} />}
                       w="full"
@@ -133,12 +137,12 @@ export default function CartWrapper() {
                       />
                     </InputGroup>
                   </Field.Root>
-                </Box>
+                </Box> */}
                 <Separator color="gray.100" w="full" />
                 <form className="w-full" onSubmit={onSubmit}>
                   <Stack w="full">
                     <Stack alignItems="stretch" w="full" px={2}>
-                      <Field.Root required invalid={!!errors.name}>
+                      <Field.Root invalid={!!errors.name}>
                         {/* <Field.Label>
                       Name <Field.RequiredIndicator />
                     </Field.Label> */}
@@ -150,14 +154,16 @@ export default function CartWrapper() {
                             placeholder="Enter your name"
                             rounded="xl"
                             colorPalette="orange"
-                            {...register("name", { required: true })}
+                            {...register("name", {
+                              required: "Name is required",
+                            })}
                           />
                         </InputGroup>
                         <Field.ErrorText>
                           {errors.name?.message}
                         </Field.ErrorText>
                       </Field.Root>
-                      <Field.Root required invalid={!!errors.contact}>
+                      <Field.Root invalid={!!errors.contact}>
                         {/* <Field.Label>
                       Contact <Field.RequiredIndicator />
                     </Field.Label> */}
@@ -170,17 +176,20 @@ export default function CartWrapper() {
                             rounded="xl"
                             colorPalette="orange"
                             {...register("contact", {
-                              required: true,
-                              pattern: "^[6-9]d{9}$",
+                              required: "Phone number is required",
+                              pattern: {
+                                value: /^[6-9]\d{9}$/,
+                                message: "Enter a valid 10-digit Indian number",
+                              },
                             })}
                           />
                         </InputGroup>
-                        <Field.HelperText>
-                          Paperless bill will be sent to this number.
-                        </Field.HelperText>
                         <Field.ErrorText>
                           {errors.contact?.message}
                         </Field.ErrorText>
+                        <Field.HelperText>
+                          Paperless bill will be sent to this number.
+                        </Field.HelperText>
                       </Field.Root>
                     </Stack>
                     <Separator color="gray.100" w="full" />
@@ -210,26 +219,28 @@ export default function CartWrapper() {
                           Close
                         </Button>
                       </DrawerCloseTrigger>
-                      <DrawerActionTrigger asChild flex={1}>
-                        <Button
-                          type="submit"
-                          colorPalette="orange"
-                          borderRadius="xl"
-                          size="md"
-                          flex={1}
-                          // onClick={() => initiatePayment({})}
-                        >
-                          <HStack alignItems="center" gap={3}>
-                            <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
-                            <Separator
-                              orientation="vertical"
-                              color="white"
-                              height="4"
-                            />
-                            Rs. {totalCartAmount}
-                          </HStack>
-                        </Button>
-                      </DrawerActionTrigger>
+                      {/* <DrawerActionTrigger asChild flex={1}> */}
+                      <Button
+                        type="submit"
+                        colorPalette="orange"
+                        borderRadius="xl"
+                        size="md"
+                        flex={1}
+                        // onClick={(e) => {
+                        //   if (!name || !contact) e.preventDefault();
+                        // }}
+                      >
+                        <HStack alignItems="center" gap={3}>
+                          <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
+                          <Separator
+                            orientation="vertical"
+                            color="white"
+                            height="4"
+                          />
+                          Rs. {totalCartAmount}
+                        </HStack>
+                      </Button>
+                      {/* </DrawerActionTrigger> */}
                     </HStack>
                   </Stack>
                 </form>
