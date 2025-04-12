@@ -1,14 +1,14 @@
 const razorpayConfig = {
   key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
-  name: "Your Company Name",
-  description: "Payment Description",
-  image: "/logo.png",
+  name: "Mantra POS",
+  description: "Enjoy your meal!",
+  image: "/window.svg",
   theme: {
     color: "#F37254",
-    backdrop_color: "#000",
+    backdrop_color: "#fff",
   },
   timeout: 600, // in seconds
-  readonlyDefaults: {
+  readonly: {
     name: true,
     contact: true,
   },

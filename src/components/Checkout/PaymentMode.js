@@ -1,22 +1,25 @@
 import { HStack, Icon, Image, RadioCard } from "@chakra-ui/react";
 import { PiMoneyWavy } from "react-icons/pi";
-import { RiAppleFill, RiBankCardFill, RiPaypalFill } from "react-icons/ri";
 
-export default function PaymentMode() {
+export default function PaymentMode({ field }) {
   return (
     <RadioCard.Root
       orientation="horizontal"
       align="center"
       justify="center"
-      defaultValue="upi"
       w="full"
       size="sm"
       colorPalette="orange"
+      name={field.name}
+      value={field.value}
+      onValueChange={({ value }) => {
+        field.onChange(value);
+      }}
     >
       <HStack align="stretch">
         {items.map((item) => (
           <RadioCard.Item key={item.value} value={item.value} borderRadius="xl">
-            <RadioCard.ItemHiddenInput />
+            <RadioCard.ItemHiddenInput onBlur={field.onBlur} />
             <RadioCard.ItemControl>
               <Icon fontSize="2xl" color="fg.subtle">
                 {item.icon}
@@ -43,5 +46,5 @@ const items = [
       />
     ),
   },
-  { value: "cash", title: "Cash", icon: <PiMoneyWavy color="green"/> },
+  { value: "cash", title: "Cash", icon: <PiMoneyWavy color="green" /> },
 ];

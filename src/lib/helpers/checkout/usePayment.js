@@ -1,8 +1,7 @@
-// usePayment.js
 "use client";
 
 import { useState } from "react";
-import { createOrder } from "./RazorpayOrderCreate";
+import { createOrder } from "./Razorpay";
 import { useCart } from "@/context/CartContext";
 import { placeOrder } from "@/lib/apiCalls/actions";
 import razorpayConfig from "../../../../razorpayPaymentConfig";
@@ -43,11 +42,11 @@ export const usePayment = () => {
 
         modal: {
           handleback: true,
-          ondismiss: () => {},
+          // ondismiss: () => {},
         },
         handler: function (response) {
-          const res = placeOrder(cart, response);
-          console.log(res);
+          // const res = placeOrder({ cart, userData, paymentResponse: response });
+          // console.log(res);
         },
         prefill: {
           name: userData?.name,
@@ -55,7 +54,7 @@ export const usePayment = () => {
           contact: userData?.contact,
           method: userData?.method,
         },
-        readonly: razorpayConfig.readonlyDefaults,
+        readonly: razorpayConfig.readonly,
         config: razorpayConfig.config,
       };
 

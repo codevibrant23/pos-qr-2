@@ -23,6 +23,7 @@ import {
   Separator,
   Icon,
   Stack,
+  Fieldset,
 } from "@chakra-ui/react";
 import { useCart } from "@/context/CartContext";
 import CartItemsList from "./CartItemsList";
@@ -37,6 +38,7 @@ import { BsCart4 } from "react-icons/bs";
 import { FiPhone } from "react-icons/fi";
 import PaymentMode from "../Checkout/PaymentMode";
 import { usePayment } from "@/lib/helpers/checkout/usePayment";
+import { Controller, useForm } from "react-hook-form";
 
 export default function CartWrapper() {
   const {
@@ -48,6 +50,19 @@ export default function CartWrapper() {
   } = useCart();
   const { outlet } = useParams();
   const { initiatePayment } = usePayment();
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      method: "upi",
+    },
+  });
+
+  const onSubmit = handleSubmit((data) => initiatePayment(data));
 
   if (totalCartQuantity == 0) return;
 
@@ -120,73 +135,104 @@ export default function CartWrapper() {
                   </Field.Root>
                 </Box>
                 <Separator color="gray.100" w="full" />
-
-                <Stack alignItems="stretch" w="full" px={2}>
-                  <Field.Root required>
-                    {/* <Field.Label>
+                <form className="w-full" onSubmit={onSubmit}>
+                  <Stack w="full">
+                    <Stack alignItems="stretch" w="full" px={2}>
+                      <Field.Root required invalid={!!errors.name}>
+                        {/* <Field.Label>
                       Name <Field.RequiredIndicator />
                     </Field.Label> */}
-                    <InputGroup startElement={<Icon as={CiUser} />} w="full">
-                      <Input
-                        placeholder="Enter your name"
-                        rounded="xl"
-                        colorPalette="orange"
-                      />
-                    </InputGroup>
-                  </Field.Root>
-                  <Field.Root required>
-                    {/* <Field.Label>
+                        <InputGroup
+                          startElement={<Icon as={CiUser} />}
+                          w="full"
+                        >
+                          <Input
+                            placeholder="Enter your name"
+                            rounded="xl"
+                            colorPalette="orange"
+                            {...register("name", { required: true })}
+                          />
+                        </InputGroup>
+                        <Field.ErrorText>
+                          {errors.name?.message}
+                        </Field.ErrorText>
+                      </Field.Root>
+                      <Field.Root required invalid={!!errors.contact}>
+                        {/* <Field.Label>
                       Contact <Field.RequiredIndicator />
                     </Field.Label> */}
-                    <InputGroup startElement={<Icon as={FiPhone} />} w="full">
-                      <Input
-                        placeholder="Enter your number"
-                        rounded="xl"
-                        colorPalette="orange"
+                        <InputGroup
+                          startElement={<Icon as={FiPhone} />}
+                          w="full"
+                        >
+                          <Input
+                            placeholder="Enter your number"
+                            rounded="xl"
+                            colorPalette="orange"
+                            {...register("contact", {
+                              required: true,
+                              pattern: "^[6-9]d{9}$",
+                            })}
+                          />
+                        </InputGroup>
+                        <Field.HelperText>
+                          Paperless bill will be sent to this number.
+                        </Field.HelperText>
+                        <Field.ErrorText>
+                          {errors.contact?.message}
+                        </Field.ErrorText>
+                      </Field.Root>
+                    </Stack>
+                    <Separator color="gray.100" w="full" />
+                    <Fieldset.Root invalid={!!errors.method}>
+                      {/* <Fieldset.Legend>Payment Method</Fieldset.Legend> */}
+                      <Controller
+                        name="method"
+                        control={control}
+                        render={({ field }) => <PaymentMode field={field} />}
                       />
-                    </InputGroup>
-                    <Field.HelperText>
-                      Paperless bill will be sent to this number.
-                    </Field.HelperText>
-                    <Field.ErrorText>This field is required</Field.ErrorText>
-                  </Field.Root>
-                </Stack>
-                <Separator color="gray.100" w="full" />
-                <PaymentMode />
-                <Separator color="gray.100" w="full" />
-                <HStack gap={2} w="full">
-                  <DrawerCloseTrigger asChild>
-                    <Button
-                      variant="outline"
-                      colorPalette="orange"
-                      borderRadius="xl"
-                      size="md"
-                    >
-                      Close
-                    </Button>
-                  </DrawerCloseTrigger>
-                  <DrawerActionTrigger asChild flex={1}>
-                    <Button
-                      colorPalette="orange"
-                      borderRadius="xl"
-                      // asChild
-                      size="md"
-                      onClick={() => initiatePayment({})}
-                    >
-                      {/* <Link href={`/${outlet}/checkout`}> */}
-                      <HStack alignItems="center" gap={3}>
-                        <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
-                        <Separator
-                          orientation="vertical"
-                          color="white"
-                          height="4"
-                        />
-                        Rs. {totalCartAmount}
-                      </HStack>
-                      {/* </Link> */}
-                    </Button>
-                  </DrawerActionTrigger>
-                </HStack>
+
+                      {errors.value && (
+                        <Fieldset.ErrorText>
+                          {errors.method?.message}
+                        </Fieldset.ErrorText>
+                      )}
+                    </Fieldset.Root>
+                    <Separator color="gray.100" w="full" />
+                    <HStack gap={2} w="full">
+                      <DrawerCloseTrigger asChild>
+                        <Button
+                          variant="outline"
+                          colorPalette="orange"
+                          borderRadius="xl"
+                          size="md"
+                        >
+                          Close
+                        </Button>
+                      </DrawerCloseTrigger>
+                      {/* <DrawerActionTrigger asChild flex={1}> */}
+                      <Button
+                        type="submit"
+                        colorPalette="orange"
+                        borderRadius="xl"
+                        size="md"
+                        flex={1}
+                        // onClick={() => initiatePayment({})}
+                      >
+                        <HStack alignItems="center" gap={3}>
+                          <Icon as={MdOutlineShoppingCartCheckout} /> Checkout
+                          <Separator
+                            orientation="vertical"
+                            color="white"
+                            height="4"
+                          />
+                          Rs. {totalCartAmount}
+                        </HStack>
+                      </Button>
+                      {/* </DrawerActionTrigger> */}
+                    </HStack>
+                  </Stack>
+                </form>
               </DrawerFooter>
             </DrawerContent>
           </DrawerPositioner>
