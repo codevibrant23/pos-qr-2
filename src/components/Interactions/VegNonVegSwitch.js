@@ -12,7 +12,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { GiChicken, GiChickenOven } from "react-icons/gi";
 import { PiPlantLight } from "react-icons/pi";
-import { useRouterReplace } from "@/lib/CustomHooks/RouterHook";
+import { useRouterReplace } from "@/lib/RouterHook";
 
 export default function VegNonVegSwitch() {
   const searchParams = useSearchParams();

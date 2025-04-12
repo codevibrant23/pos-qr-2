@@ -7,7 +7,7 @@ import { toCategoryName } from "@/lib/utils";
 import Header from "@/components/Interactions/Header";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { useRouterReplace } from "@/lib/CustomHooks/RouterHook";
+import { useRouterReplace } from "@/lib/RouterHook";
 import BackButton from "./BackToMenu";
 
 export default function CategoryMenuHeader({ categoryList }) {

@@ -36,6 +36,7 @@ import { CiDiscount1, CiUser } from "react-icons/ci";
 import { BsCart4 } from "react-icons/bs";
 import { FiPhone } from "react-icons/fi";
 import PaymentMode from "../Checkout/PaymentMode";
+import { usePayment } from "@/lib/helpers/checkout/usePayment";
 
 export default function CartWrapper() {
   const {
@@ -46,6 +47,8 @@ export default function CartWrapper() {
     clearCart,
   } = useCart();
   const { outlet } = useParams();
+  const { initiatePayment } = usePayment();
+
   if (totalCartQuantity == 0) return;
 
   return (
@@ -168,6 +171,7 @@ export default function CartWrapper() {
                       borderRadius="xl"
                       // asChild
                       size="md"
+                      onClick={() => initiatePayment({})}
                     >
                       {/* <Link href={`/${outlet}/checkout`}> */}
                       <HStack alignItems="center" gap={3}>

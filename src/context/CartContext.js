@@ -62,7 +62,6 @@ export const CartProvider = ({ children }) => {
 
   // Open, close and toggle functions for cart trigger
   const openCart = () => {
-    console.log("juhuh");
     setOpen(true);
   };
 
