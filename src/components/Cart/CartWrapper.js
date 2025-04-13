@@ -24,6 +24,8 @@ import {
   Icon,
   Stack,
   Fieldset,
+  Center,
+  Spinner,
 } from "@chakra-ui/react";
 import { useCart } from "@/context/CartContext";
 import CartItemsList from "./CartItemsList";
@@ -49,7 +51,7 @@ export default function CartWrapper() {
     clearCart,
   } = useCart();
   const { outlet } = useParams();
-  const { initiatePayment } = usePayment();
+  const { initiatePayment, loading } = usePayment();
 
   const {
     control,
@@ -67,6 +69,18 @@ export default function CartWrapper() {
     closeCart();
     initiatePayment(data);
   });
+
+  if (loading) {
+    return (
+      <Portal>
+        <Box pos="fixed" inset="0" bg="blackAlpha.600">
+          <Center h="100vh">
+            <Spinner color="orange" />
+          </Center>
+        </Box>
+      </Portal>
+    );
+  }
 
   if (totalCartQuantity == 0) return;
 

@@ -5,11 +5,14 @@ import { createOrder } from "./Razorpay";
 import { useCart } from "@/context/CartContext";
 import { placeOrder } from "@/lib/apiCalls/actions";
 import razorpayConfig from "../../../../razorpayPaymentConfig";
+import { useParams, useRouter } from "next/navigation";
 
 export const usePayment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { cart } = useCart();
+  const { outlet } = useParams();
+  const router = useRouter();
 
   const initiatePayment = async (userData) => {
     setLoading(true);
@@ -44,9 +47,19 @@ export const usePayment = () => {
           handleback: true,
           // ondismiss: () => {},
         },
-        handler: function (response) {
-          // const res = placeOrder({ cart, userData, paymentResponse: response });
-          // console.log(res);
+        handler: async function (response) {
+          const res = await placeOrder(outlet, {
+            cart,
+            userData,
+            paymentResponse: response,
+          });
+          if (res?.error) {
+            router.push(`/${outlet}/order/failed`);
+            return;
+          }
+          router.push(
+            `/${outlet}/order/success?orderId=${res?.order_number}&total=${res?.total_price}`
+          );
         },
         prefill: {
           name: userData?.name,
